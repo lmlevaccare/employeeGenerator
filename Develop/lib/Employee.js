@@ -1,56 +1,91 @@
 // TODO: Write code to define and export the Employee class
 
-const inquirer = require('inquirer');
-const util = require('util');
-let fs = require('fs');
-const assert = require('assert');
+// TODO: Write code to define and export the Manager class. HINT: This class should inherit from Employee.
+
+// Employee = require('./lib/Employee');
+
 
 class Employee {
-    constructor(fullname, github, email, college, id, role, officenum) {
+    constructor(name, id, email,role) {
     
-        this.fullname = fullname;
-        this.github = github;
+        this.name = name;
         this.email = email;
-        this.college = college;
         this.id = id;
         this.role = role;
-        this.officenum = officenum;
     }
-    getSummary() {
-       return (`${this.fullname} ${this.github} ${this.email} ${this.college} ${this.id} ${this.role} 
-        ${this.officenum}`)
-   
-    }
-}
-function generate() {
-    let intern = new Employee();
-    console.log(intern);
-    let engineer = new Employee();
-    let manager = new Employee();
     
-    if (manager) {
-        return (`${this.fullname} ${this.officenum}${this.email} ${this.colllege} ${this.id}`);
-           
-    }
-    else if (engineer) {
-        return (`${this.fullname} ${this.officenum} ${this.email} ${this.github} ${this.id}`);
-
-    }
-    if (intern) {
-        return (`${this.fullname} ${this.github} ${this.email} ${this.college} ${this.id} `);
-           
+    getName() {
+        return `${this.name}`;
     }
 
-    else {
-        console.log('you are broken');
+    getId() {
+        return `${this.id}`;
     }
- 
+    getEmail() {
+        return `${this.email}`;
+    }
+
+    getRole() {
+        return `${this.role}`;
+    }
 
 }
 
-      
+
+// Employee.prototype.getRole = function () {
+//     return `${this.role} Manager `;
+// };
+
+ 
+class Manager extends Employee {
+    constructor(name, id, email,role,officeNumber) {
+        super (name, id, email,role);
+        this.officeNumber = officeNumber;
+          this.role = role;
+    }
+    getNumber() {
+        return `${this.officeNumber}`;
+    }
+     getRole() {
+        return `${this.role}`;
+    }
+  
+}
+
+class Engineer extends Employee {
+        constructor(name, id, email,role,github) {
+        super (name, id, email,role);
+            this.github = github;
+            this.role = role;
+        }
+     gitHub() {
+        return `${this.github}`;
+    }
+    getRole() {
+        return `${this.role}`;
+    }
+}
 
 
-generate()
+class Intern extends Employee {
+    constructor(name, id, email, role, school) {
+        super(name, id, email, role);
+        this.school = school;
+        this.role = role;
+    }
+    gitHub() {
+        return `${this.school}`;
+    }
+    getRole() {
+        return `${this.role}`;
+    }
+    
+}
 
+// let intern1 = new Intern('intern')
+
+// console.log(intern1);
 module.exports = Employee;
+module.exports = Intern;
+module.exports = Engineer;
+module.exports = Manager;
