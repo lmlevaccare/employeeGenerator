@@ -9,9 +9,10 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const team = [];
-const id =[];
+// const empCreate =[];
 
 const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 
 const managerquest = [
     {
@@ -30,7 +31,7 @@ const managerquest = [
         {
             type: 'input',
             message: 'What is your office number?',
-            name: 'managerofficeNumber',
+            name: 'manageroffice',
         },
     {
             type: 'input',
@@ -101,14 +102,43 @@ const addrole =[{  type: 'list',
             name: 'role',
             choices: ['Manager', 'Intern', 'Engineer', 'I do not want to add further employees'] }]
 
+function runApp() {
+    inquirer.prompt(addrole)
+        .then(
+            anwsers => {
+                
+                if (anwsers.role === "Manager") {
+                    managerQ()
+                }
+                     if (anwsers.role === "Engineer") {
+                   engineerqQ()
+                }
+                
+                     if (anwsers.role === "Intern") {
+                         internQ()
+                         
+                }
 
-function mangerQ() { 
+                     else if (anwsers.role === "I do not want to add further employees") {
+                         console.log(team)
+                        endProgram(team) 
+                }
+            }
+            
+          
+    )
+}
+
+runApp()
+
+function managerQ() { 
     inquirer.prompt(managerquest)  
         .then(
             anwsers => { 
-                const manager = new Manager(anwsers.managername, anwsers.manageremail, anwsers.engineergithub, anwsers.engineerId)
+                const manager = new Manager(anwsers.managername, anwsers.manageremail, anwsers.manageroffice, anwsers.managerId)
                 team.push(manager)
-                id.push(anwsers.managerid)
+                runApp()
+                // empCreate.push(anwsers.managerId)
             }
 
             
@@ -122,7 +152,8 @@ function engineerqQ() {
             anwsers => { 
                 const engineer = new Engineer(anwsers.engineername, anwsers.engineeremail, anwsers.engineergithub,anwsers.engineerId)
                 team.push(engineer)
-                id.push(anwsers.engineerid)
+                runApp()
+                // empCreate.push(anwsers.engineerId)
             }
 
             
@@ -130,95 +161,35 @@ function engineerqQ() {
 
 }
 
-function internQ() { 
-    inquirer.prompt(engineerquest)  
+function internQ() {
+    inquirer.prompt(internquest)
         .then(
-            anwsers => { 
-                const intern = new Intern(anwsers.internname, anwsers.internemail, anwsers.internscool,anwsers.internId)
+            anwsers => {
+                const intern = new Intern(anwsers.internname, anwsers.internemail, anwsers.internschool, anwsers.internid)
                 team.push(intern)
-                id.push(anwsers.internid)
+                runApp()
+                // empCreate.push(anwsers.internId)
             }
-
-            
-    )
-
+    
+        )
 }
         
 function endProgram(team) {
-    fs.writeFileSync(outputPath,render(team))
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(team),"utf-8")
+
+ 
     
 }
 
 
-endProgram()
-        
 
-    // After the user has input all employees desired, call the `render` function (required
-    // above) and pass in an array containing all employee objects; the `render` function will
-    // generate and return a block of HTML including templated divs for each employee!
+    
+
  
     
 
-
-
-// render()
-// .console.log(Reflect.get(Employee, 'Manager'));
-// console.log(Reflect.get(Employee, 'Engineer'));
-// console.log(Reflect.get(Employee, 'Intern'));
-
-
-
-
-
-
-if (target instanceof Components.interfaces.nsIRDFResource)
-  return target.Value;
-if (target instanceof Components.interfaces.nsIRDFLiteral)
-  return target.Value;
-return null;
-   
-
-
-
-function generateEmp(input) {
-
-    // let output = [];
-    // for (let i = 0; i < input.length; i++) {
-    //     if (input[i]) {
-    //         output.push(input[i]) = JSON.stringify(input[i])
-    //         console.log(input[i])
-        
-        
-            return `
-
-        ${input.name}
-
-
-        <h2>${input.email}</h2>
-
-
-        ${input.officeNumber}
-
-
-        ${input.github}
-
-
-        ${input.role}
-
-        `;
-   
-        }
-//     }
-// }
-
-
-
-promptNewEmp()
-    .then((input => writeFileAsync(path.join(__dirname, '/templates', 'manager.html'), generateEmp(input))
-        .then(() => console.log('Success!'))
-        .catch((err) => console.error(err))
-
-    )
-    )
 
 
