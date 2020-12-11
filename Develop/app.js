@@ -9,10 +9,10 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const team = [];
-// const empCreate =[];
+
 
 const render = require("./lib/htmlRenderer");
-const Employee = require("./lib/Employee");
+const employee = require("./lib/Employee");
 
 const managerquest = [
     {
@@ -138,7 +138,7 @@ function managerQ() {
                 const manager = new Manager(anwsers.managername, anwsers.manageremail, anwsers.manageroffice, anwsers.managerId)
                 team.push(manager)
                 runApp()
-                // empCreate.push(anwsers.managerId)
+                
             }
 
             
@@ -153,7 +153,7 @@ function engineerqQ() {
                 const engineer = new Engineer(anwsers.engineername, anwsers.engineeremail, anwsers.engineergithub,anwsers.engineerId)
                 team.push(engineer)
                 runApp()
-                // empCreate.push(anwsers.engineerId)
+           
             }
 
             
@@ -168,7 +168,7 @@ function internQ() {
                 const intern = new Intern(anwsers.internname, anwsers.internemail, anwsers.internschool, anwsers.internid)
                 team.push(intern)
                 runApp()
-                // empCreate.push(anwsers.internId)
+            
             }
     
         )
